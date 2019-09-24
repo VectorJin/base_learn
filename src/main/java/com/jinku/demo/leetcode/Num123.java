@@ -25,6 +25,8 @@ public class Num123 {
      * 当前持有股票
      * dp[n][k][1] = max(dp[n-1][k][1], dp[n-1][k-1][0] - prices[n])
      *
+     * 遍历所有的状态
+     *
      * @param prices
      * @return
      */
