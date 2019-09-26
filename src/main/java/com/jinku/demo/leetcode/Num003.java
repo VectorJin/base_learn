@@ -5,6 +5,10 @@ package com.jinku.demo.leetcode;
  */
 public class Num003 {
 
+    public static void main(String[] args) {
+        System.out.println(lengthOfLongestSubstring("deabcabcbb"));
+    }
+
     public static int lengthOfLongestSubstring(String s) {
         int max = 0;
         int start = 0;
@@ -21,10 +25,6 @@ public class Num003 {
             }
         }
         return max;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("deabcabcbb"));
     }
 
 }
