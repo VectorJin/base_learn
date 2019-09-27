@@ -1,12 +1,15 @@
 package com.jinku.demo.leetcode;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
 /**
  * 数组中的第K个最大元素
  */
 public class Num215 {
 
     public static void main(String[] args) {
-        System.out.println(findKthLargest(new int[]{5, 3, 3, 3, 3, 3, 3, 3, 3}, 1));
+        System.out.println(findKthLargest2(new int[]{1, 3, 4, 8, 9}, 2));
     }
 
     static int result = 0;
@@ -69,5 +72,21 @@ public class Num215 {
         } else {
             quickSort(nums, baseIndex + 1, right, k);
         }
+    }
+
+    public static int findKthLargest2(int[] nums, int k) {
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+        for (int i = 0; i < nums.length; i++) {
+            Integer min = priorityQueue.peek();
+            if (priorityQueue.size() < k) {
+                priorityQueue.add(nums[i]);
+                continue;
+            }
+            if ((nums[i] > min)) {
+                priorityQueue.poll();
+                priorityQueue.add(nums[i]);
+            }
+        }
+        return priorityQueue.peek();
     }
 }
