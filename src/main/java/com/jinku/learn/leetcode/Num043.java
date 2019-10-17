@@ -171,7 +171,7 @@ public class Num043 {
         return result;
     }
 
-    private static String plus(String num1, String num2) {
+    public static String plus(String num1, String num2) {
         String result = "";
 
         int n = Math.max(num1.length(), num2.length());
