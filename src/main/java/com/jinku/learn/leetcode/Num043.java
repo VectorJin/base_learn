@@ -7,19 +7,93 @@ package com.jinku.learn.leetcode;
 public class Num043 {
 
     public static void main(String[] args) {
-        System.out.println(multiply("49889766555", "2"));
+        System.out.println(normal("125", "239"));
     }
 
     public static String multiply(String num1, String num2) {
         return helper(num1, num2);
     }
 
+    private static String normal(String num1, String num2) {
+        String result = "";
+
+        char[] array1 = num1.toCharArray();
+        char[] array2 = num2.toCharArray();
+
+        int length1 = num1.length();
+        int length2 = num2.length();
+
+        int[] array = new int[length1 * length2];
+
+        int index = 0;
+        for (int i = length2 - 1; i >= 0; i--) {
+            int level = length2 - i - 1;
+            int point = level;
+            int start = index;
+            for (int j = length1 - 1; j >= 0; j--) {
+                int tmp = (array2[i] - 48) * (array1[j] - 48);
+
+                if (level != 0 && point < start) {
+                    index = point;
+                    array[index] = array[point] + tmp;
+                } else {
+                    array[index] = tmp;
+                }
+                point++;
+                index++;
+            }
+        }
+
+        int plusNum = 0;
+        for (int i = 0; i < index;i++) {
+            int num = array[i];
+            num += plusNum;
+            if (num >= 10) {
+                plusNum = num / 10;
+                result = (num - plusNum * 10) + result;
+            } else {
+                plusNum = 0;
+                result = num + result;
+            }
+        }
+        if (plusNum != 0) {
+            result = plusNum + result;
+        }
+
+        return result;
+    }
+
     private static String helper(String num1, String num2) {
         if (num1.isEmpty() || num2.isEmpty()) {
             return "0";
         }
-        if (num1.length() <= 2 && num2.length() <= 2) {
-            return Long.parseLong(num1) * Long.parseLong(num2) + "";
+
+        if (num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
+
+        boolean negative = false;
+
+        if (num1.startsWith("-")) {
+            negative = true;
+            num1 = num1.substring(1);
+        }
+
+        if (num2.startsWith("-")) {
+            num2 = num2.substring(1);
+            if (negative) {
+                negative = false;
+            } else {
+                negative = true;
+            }
+        }
+
+        if (num1.length() <= 128 || num2.length() <= 128) {
+            if (negative) {
+                return "-" + normal(num1, num2);
+            } else {
+               return normal(num1, num2);
+            }
         }
 
         int half = Math.max(num1.length(), num2.length()) / 2;
@@ -38,10 +112,15 @@ public class Num043 {
         String ab_cd = helper(abStr, cdStr);
         String ad_plus_bd = minusOrPlus(ab_cd, "-" + acStr, "-" + bdStr);
 
-        String p1 = pow10(acStr,half * 2);
+        String p1 = pow10(acStr, half * 2);
         String p2 = pow10(ad_plus_bd, half);
 
-        return minusOrPlus(p1, p2, bdStr);
+        String result = minusOrPlus(p1, p2, bdStr);
+
+        if (negative) {
+            return "-" + result;
+        }
+        return result;
     }
 
     private static String pow10(String str, int n) {
@@ -93,7 +172,6 @@ public class Num043 {
 
         int index = 0;
 
-
         for (int i = 0; i < n; i++) {
             int a = 0;
             int b = 0;
@@ -127,7 +205,6 @@ public class Num043 {
             return "0";
         }
 
-
         if (isNegative) {
             String tmp = num1;
             num1 = num2;
@@ -136,6 +213,10 @@ public class Num043 {
 
         array1 = num1.toCharArray();
         array2 = num2.toCharArray();
+
+        length1 = num1.length();
+        length2 = num2.length();
+
         boolean minusOne = false;
         for (int i = 0; i < n; i++) {
             int b = 0;
