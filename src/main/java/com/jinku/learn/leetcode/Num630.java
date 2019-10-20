@@ -8,7 +8,7 @@ import java.util.*;
 public class Num630 {
 
     public static void main(String[] args) {
-        System.out.println(scheduleCourse(new int[][]{{7,17}, {3,12}, {10,20}, {9,10}, {5,20},{10,19},{4,18}}));
+        System.out.println(scheduleCourse(new int[][]{{7, 17}, {3, 12}, {10, 20}, {9, 10}, {5, 20}, {10, 19}, {4, 18}}));
     }
 
     public static int scheduleCourse(int[][] courses) {
