@@ -53,10 +53,6 @@ public class Num029 {
                 break;
             }
 
-            if (isOver && dividend < (divisor - 1)) {
-                break;
-            }
-
             if (isOver) {
                 result = result + 1;
                 isOver = false;
