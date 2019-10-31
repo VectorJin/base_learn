@@ -15,6 +15,41 @@ public class Num131 {
     }
 
     public static List<List<String>> partition(String s) {
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        int length = s.length();
+        for (int len = 1; len <= length; len++) {
+            for (int i = 0; i <= s.length() - len; i++) {
+                int j = i + len - 1;
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (len < 3 || dp[i + 1][j - 1]);
+            }
+        }
+        return partitionHelper(dp, s, 0);
+    }
+
+    private static List<List<String>> partitionHelper(boolean[][] dp, String s, int start) {
+        //递归出口，空字符串
+        if (start == s.length()) {
+            List<String> list = new ArrayList<>();
+            List<List<String>> ans = new ArrayList<>();
+            ans.add(list);
+            return ans;
+        }
+        List<List<String>> ans = new ArrayList<>();
+        for (int i = start; i < s.length(); i++) {
+            //当前切割后是回文串才考虑
+            if (dp[start][i]) {
+                String left = s.substring(start, i + 1);
+                //遍历后边字符串的所有结果，将当前的字符串加到头部
+                for (List<String> l : partitionHelper(dp, s, i + 1)) {
+                    l.add(0, left);
+                    ans.add(l);
+                }
+            }
+        }
+        return ans;
+    }
+
+    public static List<List<String>> partition2(String s) {
 
         boolean[][] dp = new boolean[s.length()][s.length()];
         int length = s.length();
@@ -58,6 +93,8 @@ public class Num131 {
 
         return new ArrayList<>(ans);
     }
+
+
 
     private static boolean isPalindrome(String string) {
         if (string.length() == 1) {
