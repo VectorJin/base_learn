@@ -13,6 +13,10 @@ public class Num049 {
 
     public static List<List<String>> groupAnagrams(String[] strs) {
         List<List<String>> ans = new ArrayList<>();
+        if (strs == null || strs.length == 0) {
+            return ans;
+        }
+
         Map<String, List<String>> map = new HashMap<>();
 
         for (String str : strs) {
