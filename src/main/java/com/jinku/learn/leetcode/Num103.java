@@ -12,59 +12,40 @@ public class Num103 {
 
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
-
-        Deque<InnerTreeNode> deque = new ArrayDeque<>();
-        deque.addLast(new InnerTreeNode(root, 1));
+        if(root == null) {
+            return ans;
+        }
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.addLast(root);
         boolean fromLeft = true;
         List<Integer> levelList = new ArrayList<>();
         ans.add(levelList);
-        int curLevel = 1;
         while (!deque.isEmpty()) {
 
-            // 新的一层，改变遍历顺序
-            InnerTreeNode node;
-
-            if (fromLeft) {
-                node = deque.peekFirst();
-            } else {
-                node = deque.peekLast();
-            }
-
-            if (node.level > curLevel) {
-                fromLeft = !fromLeft;
-                levelList = new ArrayList<>();
-                ans.add(levelList);
-            }
-
-            if (fromLeft) {
-                node = deque.pollFirst();
-            } else {
-                node = deque.pollLast();
-            }
-
-            levelList.add(node.val);
-
-            if (node.level > curLevel) {
-
+            int size = deque.size();
+            for (int i = 1; i <= size;i++) {
+                TreeNode node = deque.pollFirst();
                 if (fromLeft) {
-                    if (node.left != null) {
-                        deque.addLast(new InnerTreeNode(node.left, node.level + 1));
-                    }
-                    if (node.right != null) {
-                        deque.addLast(new InnerTreeNode(node.right, node.level + 1));
-                    }
+                    levelList.add(node.val);
                 } else {
-                    if (node.right != null) {
-                        deque.addFirst(new InnerTreeNode(node.right, node.level + 1));
-                    }
-                    if (node.left != null) {
-                        deque.addFirst(new InnerTreeNode(node.left, node.level + 1));
-                    }
+                    levelList.add(0, node.val);
+                }
+
+                if (node.left != null) {
+                    deque.addLast(node.left);
+                }
+                if (node.right != null) {
+                    deque.addLast(node.right);
                 }
             }
-            curLevel = node.level;
-        }
 
+            if (!deque.isEmpty()) {
+                // 新的一层
+                levelList = new ArrayList<>();
+                ans.add(levelList);
+                fromLeft = !fromLeft;
+            }
+        }
         return ans;
     }
 
@@ -75,17 +56,6 @@ public class Num103 {
 
         TreeNode(int x) {
             val = x;
-        }
-    }
-
-    public class InnerTreeNode extends TreeNode {
-        int level;
-
-        InnerTreeNode(TreeNode node, int level) {
-            super(node.val);
-            left = node.left;
-            right = node.right;
-            this.level = level;
         }
     }
 }
