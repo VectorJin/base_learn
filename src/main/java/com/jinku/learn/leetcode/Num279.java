@@ -6,7 +6,7 @@ package com.jinku.learn.leetcode;
 public class Num279 {
 
     public static void main(String[] args) {
-        System.out.println(numSquares(16));
+        System.out.println(numSquares(3));
     }
 
     public static int numSquares(int n) {
