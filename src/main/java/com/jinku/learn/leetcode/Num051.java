@@ -32,6 +32,7 @@ public class Num051 {
         }
         for (Integer select : canSelectList) {
 
+            // 生成新的分支，继承原有的数据
             List<String> childBranch = new ArrayList<>();
             if (currBranch != null) {
                 childBranch.addAll(currBranch);
