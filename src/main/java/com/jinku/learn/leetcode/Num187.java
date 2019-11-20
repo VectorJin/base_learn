@@ -12,7 +12,6 @@ public class Num187 {
         System.out.println(findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
     }
 
-
     public static List<String> findRepeatedDnaSequences(String s) {
         List<String> list = new ArrayList<>();
         int[] num = new int[1 << 20];
