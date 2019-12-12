@@ -16,22 +16,23 @@ public class Num039 {
         if (candidates== null || candidates.length == 0) {
             return ans;
         }
-        Set<List<Integer>> ansSet = new HashSet<>();
         for (int candidate : candidates) {
-            helper(candidates, target, candidate, ansSet, new ArrayList<>());
-        }
-        // 去重
-        for (List<Integer> list : ansSet) {
-            ans.add(list);
+            helper(candidates, target, candidate, ans, new ArrayList<>());
         }
 
         return ans;
     }
 
-    public static void helper(int[] candidates, int target, int candidate, Set<List<Integer>> ans, List<Integer> currList) {
+    public static void helper(int[] candidates, int target, int candidate, List<List<Integer>> ans, List<Integer> currList) {
+
+        // 依次递增规则，保证组合唯一
+        if (!currList.isEmpty() && currList.get(currList.size() -1) > candidate) {
+            currList.clear();
+            return;
+        }
+
         if (target == candidate) {
             currList.add(candidate);
-            Collections.sort(currList);
             ans.add(currList);
             return;
         }
