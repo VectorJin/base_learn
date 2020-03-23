@@ -15,16 +15,13 @@ public class Num300 {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        if (nums.length == 1) {
-            return 1;
-        }
         int res = 0;
         int[] dp = new int[nums.length];
         for (int i = 0; i < dp.length; i++) {
             dp[i] = 1;
         }
 
-        for (int i = 1; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             // 对于每新增一个元素，需要重新计算dp
             for (int j = 0; j < i; j++) {
                 if (nums[j] < nums[i]) {
@@ -46,15 +43,13 @@ public class Num300 {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        if (nums.length == 1) {
-            return 1;
-        }
         int res = 0;
         int[] tails = new int[nums.length];
         for (int num : nums) {
             // 使用二分法定位
             int i = 0;
             int j = res;
+
             while (i < j) {
                 int m = (j - i) / 2 + i;
                 if (num <= tails[m]) {
