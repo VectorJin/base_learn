@@ -1,30 +1,37 @@
 package com.jinku.learn.leetcode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 无重复字符的最长子串
  */
 public class Num003 {
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("deabcabcbb"));
+        System.out.println(lengthOfLongestSubstring("  "));
     }
 
     public static int lengthOfLongestSubstring(String s) {
-        int max = 0;
-        int start = 0;
-        for (int i = 0; i < s.length(); i++) {
-            int count = i - start;
-            int index = s.indexOf(s.charAt(i), start);
-            if (index < i) {// 有重复元素,则从重复元素开始
-                start = index + 1;
-            } else {
-                count++;
-            }
-            if (count > max) {
-                max = count;
-            }
+        if (s == null) {
+            return 0;
         }
-        return max;
+        int ans = 0;
+        int left = 0;
+        Map<Character, Integer> indexMap = new HashMap<>(s.length());
+        int i = 0;
+        char[] array = s.toCharArray();
+        while(i < array.length) {
+            Integer index = indexMap.get(array[i]);
+            if (index == null) {
+                indexMap.put(array[i], i);
+            } else {
+                left = Math.max(left, index + 1);
+            }
+            ans = Math.max(ans, i - left + 1);
+            i++;
+        }
+        return ans;
     }
 
 }

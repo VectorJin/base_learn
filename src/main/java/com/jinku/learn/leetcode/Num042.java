@@ -9,46 +9,22 @@ public class Num042 {
         if (height == null || height.length == 0) {
             return 0;
         }
-
-        int result = 0;
-        for (int i = 0; i < height.length; i++) {
-            if (height[i] <= 0) {
-                continue;
-            }
-            // 找到第一个大于等于的index
-            int left = height[i];
-            int rightIndex = -1;
-            // 记录遇到的最大的值
-            int max = 0;
-            int maxIndex = -1;
-            for (int j = i + 1; j < height.length; j++) {
-                if (height[j] > max) {
-                    max = height[j];
-                    maxIndex = j;
-                }
-                if (height[j] >= left) {
-                    rightIndex = j;
-                    break;
-                }
-            }
-            if (rightIndex != -1) {
-                // 计算值
-                for (int x = i + 1; x < rightIndex; x++) {
-                    result += (left - height[x]);
-                }
-                i = rightIndex - 1;
+        int ans = 0;
+        int leftMax = 0, rightMax = 0;
+        int left = 0;
+        int right = height.length - 1;
+        while (left <= right) {
+            if (leftMax <= rightMax) {
+                ans += Math.max(0, leftMax - height[left]);
+                leftMax = Math.max(leftMax, height[left]);
+                left++;
             } else {
-                if (maxIndex != -1 && left > max) {
-                    // 计算值
-                    for (int x = i + 1; x < maxIndex; x++) {
-                        result += (max - height[x]);
-                    }
-                    i = maxIndex - 1;
-                }
+                ans += Math.max(0, rightMax - height[right]);
+                rightMax = Math.max(rightMax, height[right]);
+                right--;
             }
         }
-
-        return result;
+        return ans;
     }
 
     public static void main(String[] args) {

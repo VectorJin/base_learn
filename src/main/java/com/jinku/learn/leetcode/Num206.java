@@ -27,7 +27,7 @@ public class Num206 {
             return head;
         }
 
-        ListNode pre = reverseList(head.next);
+        ListNode pre = reverseList2(head.next);
 
         head.next.next = head;
         head.next = null;
