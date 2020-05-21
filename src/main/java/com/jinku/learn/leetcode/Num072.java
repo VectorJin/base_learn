@@ -31,6 +31,7 @@ public class Num072 {
         if (word1.charAt(l1) == word2.charAt(l2)) {
             dp[l1][l2] = cal(l1 - 1, l2 - 1, dp, word1, word2);
         } else {
+            // 分别 插入、删除 和 替换操作
             dp[l1][l2] = Math.min((cal(l1, l2 - 1, dp, word1, word2) + 1),
                     Math.min((cal(l1 - 1, l2, dp, word1, word2) + 1),
                             (cal(l1 - 1, l2 - 1, dp, word1, word2) + 1)));
