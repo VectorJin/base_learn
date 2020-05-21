@@ -5,6 +5,12 @@ package com.jinku.learn.leetcode;
  */
 public class Num053 {
 
+    /**
+     * 双指针法
+     *
+     * @param nums
+     * @return
+     */
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE;
 
@@ -39,9 +45,7 @@ public class Num053 {
                     right++;
                 }
             }
-
         }
-
         return max;
     }
 }
