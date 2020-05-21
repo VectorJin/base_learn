@@ -9,6 +9,13 @@ public class Num004 {
         System.out.println(findMedianSortedArrays(new int[]{1, 3}, new int[]{2, 4}));
     }
 
+    /**
+     * 双指针 复杂度 O(m + n)
+     *
+     * @param nums1
+     * @param nums2
+     * @return
+     */
     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if (nums1 == null || nums1.length == 0) {
             if (nums2 == null || nums2.length == 0) {
