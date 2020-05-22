@@ -13,39 +13,21 @@ public class Num053 {
      */
     public int maxSubArray(int[] nums) {
         int max = Integer.MIN_VALUE;
-
         int sum = 0;
-        int left = 0;
-        int right = 0;
-
+        int left = 0, right = 0;
         while (right < nums.length) {
-            if (nums[left] > max) {
-                max = nums[left];
-            }
-            if (nums[left] <= 0) {
-                sum = 0;
-                left++;
-                right++;
-                continue;
-            }
+            sum += nums[right];
+            max = Math.max(max, sum);
 
-            if (left == right) {
-                sum = nums[left];
-                right++;
+            if (sum <= 0) {
+                left++;
+                right = left;
+                sum = 0;
             } else {
-                if (nums[right] + sum <= 0) {
-                    left = right + 1;
-                    right++;
-                    sum = 0;
-                } else {
-                    sum += nums[right];
-                    if (sum > max) {
-                        max = sum;
-                    }
-                    right++;
-                }
+                right++;
             }
         }
+
         return max;
     }
 }
