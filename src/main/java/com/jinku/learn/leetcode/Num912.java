@@ -1,11 +1,16 @@
 package com.jinku.learn.leetcode;
 
+import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
  * 升序排列：各类排序算法
  */
 public class Num912 {
+
+    public int[] sortArray(int[] nums) {
+        return Arrays.stream(nums).sorted().toArray();
+    }
 
     /**
      * 冒泡排序
@@ -170,6 +175,43 @@ public class Num912 {
         }
         for (int i = 0; i < nums.length; i++) {
             nums[i] = queue.poll();
+        }
+        return nums;
+    }
+
+    /**
+     * 希尔排序
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortArray7(int[] nums) {
+        int step = nums.length / 2;
+
+        // 遍历不同步幅（不断减半直到为1）
+        while (step >= 1) {
+            // 遍历不同组
+            for (int i = 0; i < step; i++) {
+                // 同一组使用插入排序
+                for (int j = i; j < nums.length; j += step) {
+                    if (j + step >= nums.length) {
+                        break;
+                    }
+                    int value = nums[j + step];
+                    int k = j;
+                    for (; k >= i; k -= step) {
+                        if (nums[k] > value) {
+                            // 前面大的元素后移
+                            nums[k + step] = nums[k];
+                        } else {
+                            break;
+                        }
+                    }
+                    // 插入真正的位置
+                    nums[k + step] = value;
+                }
+            }
+            step = step / 2;
         }
         return nums;
     }
