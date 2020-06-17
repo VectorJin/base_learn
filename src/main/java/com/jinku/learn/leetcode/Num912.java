@@ -1,5 +1,7 @@
 package com.jinku.learn.leetcode;
 
+import java.util.PriorityQueue;
+
 /**
  * 升序排列：各类排序算法
  */
@@ -162,7 +164,13 @@ public class Num912 {
      * @return
      */
     public int[] sortArray6(int[] nums) {
-
+        PriorityQueue<Integer> queue = new PriorityQueue<>(nums.length);
+        for (int num : nums) {
+            queue.add(num);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = queue.poll();
+        }
         return nums;
     }
 }
