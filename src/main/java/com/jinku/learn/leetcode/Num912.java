@@ -115,4 +115,54 @@ public class Num912 {
         quickSort(nums, left, baseIndex - 1);
         quickSort(nums, baseIndex + 1, right);
     }
+
+    /**
+     * 归并排序
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortArray5(int[] nums) {
+        return mergeSort(nums, 0, nums.length - 1);
+    }
+
+    private int[] mergeSort(int[] nums, int left, int right) {
+        int[] mergedResult = new int[right - left + 1];
+        // 边界条件
+        if (left == right) {
+            mergedResult[0] = nums[left];
+            return mergedResult;
+        }
+
+        // 拆分
+        int baseIndex = (right - left) / 2 + left;
+        int[] leftResult = mergeSort(nums, left, baseIndex);
+        int[] rightResult = mergeSort(nums, baseIndex + 1, right);
+
+        // 合并结果
+        int i = 0;
+        int j = 0;
+        int index = 0;
+        while (i < leftResult.length || j < rightResult.length) {
+            if (i >= leftResult.length || leftResult[i] > rightResult[j]) {
+                mergedResult[index++] = rightResult[j++];
+            }
+            if (j >= rightResult.length || leftResult[i] <= rightResult[j]) {
+                mergedResult[index++] = leftResult[i++];
+            }
+        }
+
+        return mergedResult;
+    }
+
+    /**
+     * 堆排序
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortArray6(int[] nums) {
+
+        return nums;
+    }
 }
