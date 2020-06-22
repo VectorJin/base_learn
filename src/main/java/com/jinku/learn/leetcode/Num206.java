@@ -1,7 +1,5 @@
 package com.jinku.learn.leetcode;
 
-import com.jinku.learn.interview.Algorithm;
-
 /**
  * 反转链表
  */
