@@ -1,41 +1,50 @@
 package com.jinku.learn.leetcode;
 
+import com.jinku.learn.interview.Algorithm;
+
 /**
  * 反转链表
  */
 public class Num206 {
 
-    public ListNode reverseList(ListNode head) {
+    /**
+     * 递归解法
+     *
+     * @param pre
+     * @param node
+     * @return
+     */
+    private ListNode helper(ListNode pre, ListNode node) {
+        // 当前节点指针指向前一节点
+        ListNode next = node.next;
+        node.next = pre;
+        if (next == null) {
+            // 当前为最后一个节点
+            return node;
+        }
+        // 继续访问下一个节点
+        return helper(node, node.next);
+    }
 
+    /**
+     * 迭代解法
+     *
+     * @return
+     */
+    private ListNode iterate(ListNode node) {
         ListNode pre = null;
-        while (head != null) {
-            ListNode next = head.next;
-            head.next = pre;
-            pre = head;
+        while (node != null) {
+            ListNode next = node.next;
+            node.next = pre;
+            pre = node;
 
             if (next == null) {
-                return head;
+                return node;
             }
-            head = next;
+            node = next;
         }
         return null;
     }
-
-    public ListNode reverseList2(ListNode head) {
-
-        if (head == null || head.next == null) {
-            return head;
-        }
-
-        ListNode pre = reverseList2(head.next);
-
-        head.next.next = head;
-        head.next = null;
-
-        return pre;
-    }
-
-
 
     public class ListNode {
         int val;
