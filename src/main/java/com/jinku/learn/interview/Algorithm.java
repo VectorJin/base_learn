@@ -2,9 +2,7 @@ package com.jinku.learn.interview;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
@@ -191,4 +189,55 @@ public class Algorithm {
             thread.interrupt();
         }
     }
+
+    //====================伴鱼算法面试=======================
+
+    /**
+     * 对于一个数组，分行打印 a + b = c + d 的下标
+     * [1, 2, 3, 4, 5, 6, 7, 8]
+     *
+     * @param array : 整数数组
+     */
+    public void printIndex(int[] array) {
+        Map<Integer, List<Node>> map = new HashMap<>();
+        for (int i = 0; i < array.length; i++) {
+            for (int j = i + 1; j < array.length; j++) {
+                int sum = array[i] + array[j];
+                List<Node> nodeList = map.getOrDefault(sum, new ArrayList<>());
+                nodeList.add(new Node(i, j));
+                map.put(sum, nodeList);
+            }
+        }
+        for (Map.Entry<Integer, List<Node>> entry : map.entrySet()) {
+            List<Node> nodeList = entry.getValue();
+            for (int i = 0; i < nodeList.size(); i++) {
+                Node node1 = nodeList.get(i);
+                for (int j = i + 1; j < nodeList.size(); j++) {
+                    Node node2 = nodeList.get(j);
+                    if (node1.hasMerged(node2)) {
+                        continue;
+                    }
+                    System.out.println(node1.num1 + "-" + node1.num2 + ":" + node2.num1 + "-" + node2.num2);
+                }
+            }
+        }
+    }
+
+    private static class Node {
+        int num1;
+        int num2;
+
+        private Node(int num1, int num2) {
+            this.num1 = num1;
+            this.num2 = num2;
+        }
+
+        // 1, 2, 2, 3
+        // 0, 1, 2, 3
+        // 3 -> node (0 ,1), node(0,2)
+        private boolean hasMerged(Node node) {
+            return num1 == node.num1 || num2 == node.num2;
+        }
+    }
+
 }
