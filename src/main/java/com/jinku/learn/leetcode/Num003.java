@@ -23,11 +23,10 @@ public class Num003 {
         char[] array = s.toCharArray();
         while(i < array.length) {
             Integer index = indexMap.get(array[i]);
-            if (index == null) {
-                indexMap.put(array[i], i);
-            } else {
+            if (index != null) {
                 left = Math.max(left, index + 1);
             }
+            indexMap.put(array[i], i);
             ans = Math.max(ans, i - left + 1);
             i++;
         }
