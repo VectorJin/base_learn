@@ -36,6 +36,7 @@ public class Offer12 {
                 return true;
             }
             char tmp = board[x][y];
+            // 特殊标记，表示此轮不可再访问
             board[x][y] = '/';
             // 继续下一词的匹配，有四种选择：上、下、左、右
             boolean ans = helper(x + 1, y, index + 1) || helper(x - 1, y, index + 1)
