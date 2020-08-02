@@ -120,7 +120,6 @@ public class Week200 {
             return ans;
         }
 
-
         class NodeInfo {
             int row;// 所在行
             boolean needReversed;//是否需要翻转
@@ -135,6 +134,5 @@ public class Week200 {
             }
         }
     }
-
 
 }
